@@ -8,20 +8,23 @@ namespace actor_pattern_example
     {
         Action<int> setProgress;
 
-        public CalculatePrimeActor( Func<Action<int>> progressBar )
+        public CalculatePrimeActor(Func<Action<int>> progressBar)
         {
             this.setProgress = progressBar();
 
-            Receive<int>( ( prime ) => { CalculatePrime( prime ); } );
+            Receive<int>((prime) => { CalculatePrime(prime); });
         }
 
-        public void CalculatePrime( int prime )
+        public void CalculatePrime(int prime)
         {
-            setProgress( 0 );
-            Thread.Sleep( 1000 );
-            setProgress( 50 );
-            Thread.Sleep( 2000 );
-            setProgress( 100 );
+            setProgress(0);
+            Context.ActorSelection("akka://TheSystem/user/progress").Tell(new ProgressStartMsg(prime, 0));
+            for (int i = 0; i < 100; i++)
+            {
+                setProgress(i);
+                Thread.Sleep(10 * (int)Math.Pow(prime, 1.01));
+            }
+            Context.ActorSelection("akka://TheSystem/user/progress").Tell(new ProgressFinishMsg(prime, 100));
         }
     }
 }

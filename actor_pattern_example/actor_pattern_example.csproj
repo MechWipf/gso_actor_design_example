@@ -60,6 +60,7 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressActor.cs" />
     <Compile Include="ProgressControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
