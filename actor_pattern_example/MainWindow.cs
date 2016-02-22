@@ -25,19 +25,19 @@ namespace actor_pattern_example
         private Props Pool;
         private ActorSystem TheSystem;
 
+        private delegate Action<int> CreateProgressBarCallback();
+
         public MainWindow()
         {
             InitializeComponent();
-
-            TheSystem = ActorSystem.Create("TheSystem");
         }
- 
-        private void btnStart_Click(object sender, EventArgs e)
+
+        private void btnStart_Click( object sender, EventArgs e )
         {
             Start();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void btnStop_Click( object sender, EventArgs e )
         {
             Stop();
         }
@@ -46,46 +46,58 @@ namespace actor_pattern_example
         {
             try
             {
+                TheSystem = ActorSystem.Create( "TheSystem" );
+
                 Running = true;
 
-                int MaxActor = Convert.ToInt32(tbActorCount.Text);
+                int MaxActor = Convert.ToInt32( tbActorCount.Text );
 
-                var props = Props.Create<CalculatePrimeActor>().WithRouter(new SmallestMailboxPool(MaxActor));
-                var actor = TheSystem.ActorOf<CalculatePrimeActor>();
-
-                props.Tell();
-
-                for (int i = 0; i < MaxActor; i++)
+                Func<Action<int>> callback = () =>
                 {
-                    AddProgressBar("Worker: " + (i + 1));
+                    var d = new CreateProgressBarCallback(CreateProgressBar);
+                    return (Action<int>)Invoke( d, new object[] { } );
+                };
+                var props = Props.Create( () => new CalculatePrimeActor( callback ) ).WithRouter( new SmallestMailboxPool( MaxActor ) );
+                var router = TheSystem.ActorOf( props, "router" );
+
+                for (int i = 0; i < 100000; i++)
+                {
+                    router.Tell( i );
                 }
             }
             catch (Exception e)
             {
                 Running = false;
-                MessageBox.Show(e.Message, "Error");
+                MessageBox.Show( e.Message, "Error" );
             }
         }
 
         public void Stop()
         {
+            btnStart.Enabled = true;
+
             try
             {
                 this.flProgress.Controls.Clear();
+                this.TheSystem.Terminate();
+                Task.WaitAll( this.TheSystem.WhenTerminated );
                 Running = false;
             }
             catch (Exception e)
             {
                 Running = false;
-                MessageBox.Show(e.Message, "Error");
+                MessageBox.Show( e.Message, "Error" );
             }
+
+            btnStop.Enabled = true;
         }
 
-        public void AddProgressBar(string Caption)
+        public Action<int> CreateProgressBar()
         {
-            var pp = new ProgressControl(Caption);
-            this.flProgress.Controls.Add(pp);
-        }
+            var pp = new ProgressControl( "Worker" );
+            this.flProgress.Controls.Add( pp );
 
+            return ( i ) => { pp.SetValue( i ); };
+        }
     }
 }

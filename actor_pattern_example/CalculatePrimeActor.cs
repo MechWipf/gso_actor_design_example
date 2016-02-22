@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using Akka.Actor;
-using Akka.Event;
+using System;
 
 namespace actor_pattern_example
 {
-    class CalcPrime
-    {
-        public ProgressControl Progress { get; private set; }
-        public int Prime { get; private set; }
-
-        public CalcPrime(int Prime, ProgressControl Progress)
-        {
-            this.Prime = Prime;
-            this.Progress = Progress;
-        }
-    }
-
     class CalculatePrimeActor : ReceiveActor
     {
+        Action<int> setProgress;
 
+        public CalculatePrimeActor( Func<Action<int>> progressBar )
+        {
+            this.setProgress = progressBar();
+
+            Receive<int>( ( prime ) => { CalculatePrime( prime ); } );
+        }
+
+        public void CalculatePrime( int prime )
+        {
+            setProgress( 0 );
+            Thread.Sleep( 1000 );
+            setProgress( 50 );
+            Thread.Sleep( 2000 );
+            setProgress( 100 );
+        }
     }
 }
