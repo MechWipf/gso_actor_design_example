@@ -52,11 +52,11 @@ namespace actor_pattern_example
                 progressMsg.Match()
                     .With<ProgressStartMsg>(_ =>
                     {
-                        textBox(string.Format("Prime {0} started calculating.\n", progressMsg.WorkId));
+                        textBox(string.Format("{0} started.\n", progressMsg.WorkId));
                     })
                     .With<ProgressFinishMsg>(_ =>
                     {
-                        textBox(string.Format("Prime {0} finished calculating.\n", progressMsg.WorkId));
+                        textBox(string.Format("{0} finished.\n", progressMsg.WorkId));
                     })
                     .Default(_ => { });
             }

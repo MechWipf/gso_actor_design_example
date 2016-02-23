@@ -32,10 +32,14 @@
             this.gbProgress = new System.Windows.Forms.GroupBox();
             this.flProgress = new System.Windows.Forms.FlowLayoutPanel();
             this.pControls = new System.Windows.Forms.Panel();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbStart = new System.Windows.Forms.Label();
             this.tbActorCount = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.tbStart = new System.Windows.Forms.TextBox();
+            this.tbEnd = new System.Windows.Forms.TextBox();
+            this.lbEnd = new System.Windows.Forms.Label();
             this.gbProgress.SuspendLayout();
             this.pControls.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +81,10 @@
             // 
             // pControls
             // 
+            this.pControls.Controls.Add(this.lbEnd);
+            this.pControls.Controls.Add(this.tbEnd);
+            this.pControls.Controls.Add(this.tbStart);
+            this.pControls.Controls.Add(this.lbStart);
             this.pControls.Controls.Add(this.tbActorCount);
             this.pControls.Controls.Add(this.label1);
             this.pControls.Controls.Add(this.btnStop);
@@ -86,15 +94,32 @@
             this.pControls.Size = new System.Drawing.Size(298, 272);
             this.pControls.TabIndex = 2;
             // 
-            // btnStart
+            // lbStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(139, 246);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 0;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.lbStart.AutoSize = true;
+            this.lbStart.Location = new System.Drawing.Point(6, 46);
+            this.lbStart.Name = "lbStart";
+            this.lbStart.Size = new System.Drawing.Size(29, 13);
+            this.lbStart.TabIndex = 4;
+            this.lbStart.Text = "Start";
+            // 
+            // tbActorCount
+            // 
+            this.tbActorCount.Location = new System.Drawing.Point(3, 19);
+            this.tbActorCount.MaxLength = 4;
+            this.tbActorCount.Name = "tbActorCount";
+            this.tbActorCount.Size = new System.Drawing.Size(125, 20);
+            this.tbActorCount.TabIndex = 3;
+            this.tbActorCount.WordWrap = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Actor Count";
             // 
             // btnStop
             // 
@@ -106,23 +131,40 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // label1
+            // btnStart
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Actor Count";
+            this.btnStart.Location = new System.Drawing.Point(139, 246);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // tbActorCount
+            // tbStart
             // 
-            this.tbActorCount.Location = new System.Drawing.Point(3, 19);
-            this.tbActorCount.MaxLength = 4;
-            this.tbActorCount.Name = "tbActorCount";
-            this.tbActorCount.Size = new System.Drawing.Size(125, 20);
-            this.tbActorCount.TabIndex = 3;
-            this.tbActorCount.WordWrap = false;
+            this.tbStart.Location = new System.Drawing.Point(3, 63);
+            this.tbStart.Name = "tbStart";
+            this.tbStart.Size = new System.Drawing.Size(100, 20);
+            this.tbStart.TabIndex = 5;
+            this.tbStart.Text = "1";
+            // 
+            // tbEnd
+            // 
+            this.tbEnd.Location = new System.Drawing.Point(139, 63);
+            this.tbEnd.Name = "tbEnd";
+            this.tbEnd.Size = new System.Drawing.Size(100, 20);
+            this.tbEnd.TabIndex = 6;
+            this.tbEnd.Text = "100";
+            // 
+            // lbEnd
+            // 
+            this.lbEnd.AutoSize = true;
+            this.lbEnd.Location = new System.Drawing.Point(139, 46);
+            this.lbEnd.Name = "lbEnd";
+            this.lbEnd.Size = new System.Drawing.Size(26, 13);
+            this.lbEnd.TabIndex = 7;
+            this.lbEnd.Text = "End";
             // 
             // MainWindow
             // 
@@ -155,6 +197,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Label lbStart;
+        private System.Windows.Forms.Label lbEnd;
+        private System.Windows.Forms.TextBox tbEnd;
+        private System.Windows.Forms.TextBox tbStart;
     }
 }
 

@@ -13,28 +13,19 @@ namespace actor_pattern_example
         private Label lbCaption;
         private ProgressBar pbProgress;
 
-        delegate void SetValueCallback(int value);
-
         public int Value
         {
             get { return this.pbProgress.Value; }
             set { this.pbProgress.Value = value; }
         }
 
-        public void SetValue(int value)
+        public string Caption
         {
-            if (this.pbProgress.InvokeRequired)
-            {
-                SetValueCallback d = new SetValueCallback(SetValue);
-                this.Invoke(d, new object[] { value });
-            }
-            else
-            {
-                this.Value = value;
-            }
+            get { return lbCaption.Text; }
+            set { lbCaption.Text = value; }
         }
 
-        public ProgressControl(string caption)
+        public ProgressControl( string caption )
         {
             InitializeComponent();
 
@@ -58,7 +49,7 @@ namespace actor_pattern_example
             // 
             // pbProgress
             // 
-            this.pbProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.pbProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pbProgress.Location = new System.Drawing.Point(3, 16);
             this.pbProgress.Name = "pbProgress";
